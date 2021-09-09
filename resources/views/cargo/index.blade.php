@@ -56,7 +56,7 @@
 
     <script type="text/javascript">
     
-        var urlCargoDefault = '{{ route('ajax.listCargos') }}';
+        var urlCargoDefault = '{{ route('ajax.listCargo') }}';
         var tableCargo;
 
         function refreshtableCargos() {
