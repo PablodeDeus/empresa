@@ -22,11 +22,19 @@
                 <div class="col-8">
 
                 <button  onclick="mostrar_filtro()" class="btn btn-primary" id="filtro_button"> Mostrar filtros</button>
+                {{-- {{dd($cargos)}} --}}
                 
                 <div class="hide" id = "filtro_div">
                     <div class="row">
                         <div class="col-md-4">
-                            {{ Form::select('filtro_cargo', $cargos, old('filtro_cargo'), [ 'placeholder' => 'Mostrar Todos', 'id' => 'filtro_cargo', 'onchange' => 'refreshTablePessoas();']) }}
+                            <div class="row">
+                                <h2>Cargos</h2>
+                                {{ Form::select('filtro_cargo', $cargos, old('filtro_cargo'), [ 'placeholder' => 'Mostrar Todos', 'id' => 'filtro_cargo', 'onchange' => 'refreshTablePessoas();']) }}
+                            </div>
+                            <div class="row">
+                                <h2>Setor</h2>
+                                {{ Form::select('filtro_setor', $cargos, old('filtro_setor'), [ 'placeholder' => 'Mostrar Todos', 'id' => 'filtro_setor', 'onchange' => 'refreshTablePessoas();']) }}
+                            </div>
                         </div>
                     </div>
                 </div>

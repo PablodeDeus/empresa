@@ -66,8 +66,7 @@ class AjaxController extends Controller
         $dataTable = DataTables::of($data) 
                     ->addColumn('action', 'cargo.action')
                     ->make(true);
-        return $dataTable;
-        
+        return $dataTable; 
     }
         
             

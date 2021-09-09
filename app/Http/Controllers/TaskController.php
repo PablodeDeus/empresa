@@ -113,81 +113,81 @@ class TaskController extends Controller
         ];
     }
 
-    public function listTasks(Request $request)
-    {
-        // DB table to use
-        $table =  Tasks::getModel()->getTable();
+    // public function listTasks(Request $request)
+    // {
+    //     // DB table to use
+    //     $table =  Tasks::getModel()->getTable();
 
-        // Table's primary (key)
-        $primaryKey = Tasks::getModel()->getKeyName();
+    //     // Table's primary (key)
+    //     $primaryKey = Tasks::getModel()->getKeyName();
         
     
-        $columns = array(
-            array( 'db' => 'id', 'dt' => 0 ),
-            array(
-                'db' => 'name',
-                'dt' => 1,
-                'formatter' => function ($d, $row) {
-                    return strlen($d) > 50 ? substr($d,0,50)."..." : $d;
-            }),
-            array(
-                'db' => 'description',
-                'dt' => 2,
-                'formatter' => function( $d, $row) {
+    //     $columns = array(
+    //         array( 'db' => 'id', 'dt' => 0 ),
+    //         array(
+    //             'db' => 'name',
+    //             'dt' => 1,
+    //             'formatter' => function ($d, $row) {
+    //                 return strlen($d) > 50 ? substr($d,0,50)."..." : $d;
+    //         }),
+    //         array(
+    //             'db' => 'description',
+    //             'dt' => 2,
+    //             'formatter' => function( $d, $row) {
                 
-                    if($d == null) 
-                    {
-                       return 'Indefinido';
-                    }
-                    return $d;
-                }
-            ),
-            array(
-                'db'        => 'id_creater',
-                'dt'        => 3,
-                'formatter' => function( $d, $row) {
+    //                 if($d == null) 
+    //                 {
+    //                    return 'Indefinido';
+    //                 }
+    //                 return $d;
+    //             }
+    //         ),
+    //         array(
+    //             'db'        => 'id_creater',
+    //             'dt'        => 3,
+    //             'formatter' => function( $d, $row) {
                 
-                        if($d == null) 
-                    {
-                       return 'Indefinido';
-                    }
-                    return $d;
-                }
-            ),
+    //                     if($d == null) 
+    //                 {
+    //                    return 'Indefinido';
+    //                 }
+    //                 return $d;
+    //             }
+    //         ),
             
 
-            array(
-                'db'        => 'id_assigned',
-                'dt'        => 4,
-                'formatter' => function( $d, $row) {
-                    if($d == null) 
-                    {
-                        return 'Indefinido';
-                    }
-                    // dd($d);
-                    return $d;
-                }
-            ),
+    //         array(
+    //             'db'        => 'id_assigned',
+    //             'dt'        => 4,
+    //             'formatter' => function( $d, $row) {
+    //                 if($d == null) 
+    //                 {
+    //                     return 'Indefinido';
+    //                 }
+    //                 // dd($d);
+    //                 return $d;
+    //             }
+    //         ),
 
-        );
+    //     );
         
-        // SQL server connection information
-        $sql_details = array(
-            'user' => 'homestead',
-            'pass' => 'secret',
-            'db'   => 'empresa',
-            'host' => '127.0.0.1'
-        );
+    //     // SQL server connection information
+    //     $sql_details = array(
+    //         'user' => 'homestead',
+    //         'pass' => 'secret',
+    //         'db'   => 'empresa',
+    //         'host' => '127.0.0.1'
+    //     );
         
         
-        /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
-        * If you just want to use the basic configuration for DataTables with PHP
-        * server-side, there is no need to edit below this line.
-        */
+    //     /* * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * * *
+    //     * If you just want to use the basic configuration for DataTables with PHP
+    //     * server-side, there is no need to edit below this line.
+    //     */
         
-        echo json_encode(
-            SSP::simple( $request, $sql_details, $table, $primaryKey, $columns )
-        );
-    }
+    //     echo json_encode(
+    //         SSP::simple( $request, $sql_details, $table, $primaryKey, $columns )
+    //     );
+    // }
 }
 

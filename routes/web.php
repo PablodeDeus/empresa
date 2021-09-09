@@ -29,7 +29,7 @@ Route::prefix('/ajax')->group(function(){
 
     Route::get('/pessoas', 'AjaxController@listPessoas')->name('ajax.listPessoa');
     Route::get('/tasks', 'AjaxController@listTasks')->name('ajax.listTask');
-    Route::get('/cargos', 'CargosController@listCargo')->name('ajax.listCargo');;
+    Route::get('/cargos', 'AjaxController@listCargos')->name('ajax.listCargo');;
 
 });
     

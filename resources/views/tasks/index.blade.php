@@ -2,16 +2,14 @@
 
 @section('content')
 <div class="content">
-    <div>
         
-        <div class="page-header">
-            <h1 class="title">Tasks</h1>
-            <ol class="breadcrumb">
-                <li class="active">Tasks</li>
-            </ol>
-            <div class="right">
-                <a class="btn btn-success" href="{{ route('task.create') }}">Adicionar</a>
-            </div>
+    <div class="page-header">
+        <h1 class="title">Tasks</h1>
+        <ol class="breadcrumb">
+            <li class="active">Tasks</li>
+        </ol>
+        <div class="right">
+            <a class="btn btn-success" href="{{ route('task.create') }}">Adicionar</a>
         </div>
     </div>
 
