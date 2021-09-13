@@ -13,42 +13,43 @@
         </div>
     </div>
 
-        <div class="panel">
+    <div class="panel">
+        <div class="panel-body">
             <div class="row margin-b-15">
                 <div>
-                    <label for=""><h3>Task</h3></label><br />
+                   <label for=""><h3>Task</h3></label><br />
                 </div>
 
             </div>
             <div class="row margin-b-15">
 
-                <div class="">
-                    <table id="tasksTabela" class="display" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Nome</th>
-                                <th>Descricao</th>
-                                <th>Criador</th>
-                                <th>Responsavel</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Id</th>
-                                <th>Nome</th>
-                                <th>Descricao</th>
-                                <th>Criador</th>
-                                <th>Responsavel</th>
-                                <th>Ações</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+            <div class="">
+                <table id="tasksTabela" class="display" style="width:100%">
+                    <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th>Descricao</th>
+                            <th>Criador</th>
+                            <th>Responsavel</th>
+                            <th>Ações</th>
+                        </tr>
+                    </thead>
+                    <tfoot>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nome</th>
+                            <th>Descricao</th>
+                            <th>Criador</th>
+                            <th>Responsavel</th>
+                            <th>Ações</th>
+                        </tr>
+                    </tfoot>
+                </table>
             </div>
         </div>
     </div>
+</div>
     
 @endsection
 
@@ -67,6 +68,8 @@
         }
     
         $(document).ready(function() {
+            // Get the element with id="defaultOpen" and click on it
+
             tableTasks = $('#tasksTabela').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
@@ -94,5 +97,7 @@
         });
     
     </script>
+
+ 
 @endsection
 

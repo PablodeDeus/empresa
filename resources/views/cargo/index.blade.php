@@ -2,17 +2,27 @@
 
 @section('content')
 <div class="content">
-         
-    <div class="page-header">
-      <h1 class="title">Cargos</h1>
-      <ol class="breadcrumb">
-          <li class="active">Cargos</li>
-      </ol>
+  
+  <div class="page-header">
+    <h1 class="title">Cargos</h1>
+    <ol class="breadcrumb">
+      <li class="active">Cargos</li>
+    </ol>
       <div class="right">
-          <a class="btn btn-success" href="{{ route('cargos.create') }}">Adicionar</a>
+        <a class="btn btn-success" href="{{ route('cargos.create') }}">Adicionar</a>
       </div>
     </div>
+    <div class="tab">
+      <button class="tablinks" onclick="openCity(event, 'home')" id="defaultOpen">Home</button>
+      <button class="tablinks" onclick="openCity(event, 'dataTableCargo')">DataTable</button>
+    </div>
 
+    <div id="home" class="tabcontent">
+      <h3>Home</h3>
+      <p>Tela principal</p>
+    </div>
+    
+    <div id="dataTableCargo" class="tabcontent">
         <div class="panel">
           <div class="row margin-b-15">
               <div>
@@ -45,7 +55,8 @@
           </div>
         </div>
       </div>
-    
+    </div>
+
 @endsection
 
 @section('script')      
@@ -61,6 +72,9 @@
         }
     
         $(document).ready(function() {
+          // Get the element with id="defaultOpen" and click on it
+          document.getElementById("defaultOpen").click();
+
             tableCargos = $('#cargosTabela').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
@@ -86,5 +100,21 @@
         });
     
     </script>
+<script>
+  function openCity(evt, cityName) {
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++) {
+      tabcontent[i].style.display = "none";
+    }
+    tablinks = document.getElementsByClassName("tablinks");
+    for (i = 0; i < tablinks.length; i++) {
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+    document.getElementById(cityName).style.display = "block";
+    evt.currentTarget.className += " active";
+  }
+  </script>
+     
 @endsection
 

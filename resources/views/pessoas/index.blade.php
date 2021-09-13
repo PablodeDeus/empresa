@@ -12,71 +12,88 @@
             <a class="btn btn-success" href="{{ route('pessoas.create') }}">Adicionar</a>
         </div>
     </div>
-
-        <div class="panel">
-            <div class="row margin-b-15">
-                <div>
-                    <label for=""><h3>Pessoas</h3></label><br />
-                </div>
-
-                <div class="col-8">
-
-                <button  onclick="mostrar_filtro()" class="btn btn-primary" id="filtro_button"> Mostrar filtros</button>
-                {{-- {{dd($cargos)}} --}}
-                
-                <div class="hide" id = "filtro_div">
-                    <div class="row">
-                        <div class="col-md-4">
-                            <h2>Cargos</h2>
+    <div class="panel">
+        <div class="panel-body">
+            <div class="tab">
+                <button class="tablinks" onclick="openCity(event, 'home')" id="defaultOpen">Home</button>
+                <button class="tablinks" onclick="openCity(event, 'dataTablePessoas')">DataTable</button>
+            </div>
+        
+            <div id="home" class="tabcontent">
+                {{-- <h3>Home</h3> --}}
+                <p>Tela principal Pessoas</p>
+              </div>
+              
+              <div id="dataTablePessoas" class="tabcontent">
+                <div class="panel">
+                    <div class="row margin-b-15">
+                        <div>
+                            {{-- <label for=""><h3>Pessoas</h3></label><br /> --}}
                         </div>
-                        <div class="col-md-4">
-                            <h2>Setor</h2>
+        
+                        <div class="col-8">
+        
+                        <button  onclick="mostrar_filtro()" class="btn btn-primary" id="filtro_button"> Mostrar filtros</button>
+                        {{-- {{dd($cargos)}} --}}
+                        
+                        <div class="hide" id = "filtro_div">
+                            <div class="row">
+                                <div class="col-md-4">
+                                    <h2>Cargos</h2>
+                                </div>
+                                <div class="col-md-4">
+                                    <h2>Setor</h2>
+                                </div>
+                            </div>
+                            <div class="row">
+                                <div class="col-md-4">
+                                    {{ Form::select('filtro_cargo', $cargos, old('filtro_cargo'), [ 'placeholder' => 'Mostrar Todos', 'id' => 'filtro_cargo', 'onchange' => 'refreshTablePessoas();']) }}
+                                </div>
+                                <div class="col-md-4">
+                                    {{ Form::select('filtro_setor', $cargos, old('filtro_setor'), [ 'placeholder' => 'Mostrar Todos', 'id' => 'filtro_setor', 'onchange' => 'refreshTablePessoas();']) }}
+                                </div>
+                            </div>
+                        </div>
+        
+                    </div>
+                </div>
+        
+                    </div>
+                    <div class="row margin-b-15">
+        
+                        <div class="">
+                            <table id="pessoasTabela" class="display" style="width:100%">
+                                <thead>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Telefone</th>
+                                        <th>Cargo</th>
+                                        <th>Setor</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </thead>
+                                <tfoot>
+                                    <tr>
+                                        <th>Id</th>
+                                        <th>Nome</th>
+                                        <th>Email</th>
+                                        <th>Telefone</th>
+                                        <th>Cargo</th>
+                                        <th>Setor</th>
+                                        <th>Ações</th>
+                                    </tr>
+                                </tfoot>
+                            </table>
                         </div>
                     </div>
-                    <div class="row">
-                        <div class="col-md-4">
-                            {{ Form::select('filtro_cargo', $cargos, old('filtro_cargo'), [ 'placeholder' => 'Mostrar Todos', 'id' => 'filtro_cargo', 'onchange' => 'refreshTablePessoas();']) }}
-                        </div>
-                        <div class="col-md-4">
-                            {{ Form::select('filtro_setor', $cargos, old('filtro_setor'), [ 'placeholder' => 'Mostrar Todos', 'id' => 'filtro_setor', 'onchange' => 'refreshTablePessoas();']) }}
-                        </div>
-                    </div>
                 </div>
-
-            </div>
-
-            </div>
-            <div class="row margin-b-15">
-
-                <div class="">
-                    <table id="pessoasTabela" class="display" style="width:100%">
-                        <thead>
-                            <tr>
-                                <th>Id</th>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Telefone</th>
-                                <th>Cargo</th>
-                                <th>Setor</th>
-                                <th>Ações</th>
-                            </tr>
-                        </thead>
-                        <tfoot>
-                            <tr>
-                                <th>Id</th>
-                                <th>Nome</th>
-                                <th>Email</th>
-                                <th>Telefone</th>
-                                <th>Cargo</th>
-                                <th>Setor</th>
-                                <th>Ações</th>
-                            </tr>
-                        </tfoot>
-                    </table>
-                </div>
+            
             </div>
         </div>
     </div>
+</div>
     
 @endsection
 
@@ -93,6 +110,9 @@
         }
     
         $(document).ready(function() {
+            // Get the element with id="defaultOpen" and click on it
+            document.getElementById("defaultOpen").click();
+
             tablePessoas = $('#pessoasTabela').DataTable({
                 language: {
                     url: 'https://cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
@@ -141,6 +161,22 @@
         }
         }
 
+    </script>
+
+<script>
+    function openCity(evt, cityName) {
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
+    }
     </script>
 @endsection
 
