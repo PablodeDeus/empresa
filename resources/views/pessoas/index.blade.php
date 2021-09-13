@@ -27,19 +27,23 @@
                 <div class="hide" id = "filtro_div">
                     <div class="row">
                         <div class="col-md-4">
-                            <div class="row">
-                                <h2>Cargos</h2>
-                                {{ Form::select('filtro_cargo', $cargos, old('filtro_cargo'), [ 'placeholder' => 'Mostrar Todos', 'id' => 'filtro_cargo', 'onchange' => 'refreshTablePessoas();']) }}
-                            </div>
-                            <div class="row">
-                                <h2>Setor</h2>
-                                {{ Form::select('filtro_setor', $cargos, old('filtro_setor'), [ 'placeholder' => 'Mostrar Todos', 'id' => 'filtro_setor', 'onchange' => 'refreshTablePessoas();']) }}
-                            </div>
+                            <h2>Cargos</h2>
+                        </div>
+                        <div class="col-md-4">
+                            <h2>Setor</h2>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-4">
+                            {{ Form::select('filtro_cargo', $cargos, old('filtro_cargo'), [ 'placeholder' => 'Mostrar Todos', 'id' => 'filtro_cargo', 'onchange' => 'refreshTablePessoas();']) }}
+                        </div>
+                        <div class="col-md-4">
+                            {{ Form::select('filtro_setor', $cargos, old('filtro_setor'), [ 'placeholder' => 'Mostrar Todos', 'id' => 'filtro_setor', 'onchange' => 'refreshTablePessoas();']) }}
                         </div>
                     </div>
                 </div>
 
-                </div>
+            </div>
 
             </div>
             <div class="row margin-b-15">
