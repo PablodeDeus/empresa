@@ -20,8 +20,12 @@ class AjaxController extends Controller
             $operator = (array_key_exists('operator', $filter) ? $filter['operator'] : null);
             $value = (array_key_exists('value', $filter) ? $filter['value'] : null);
             
-            if ((strlen(trim($operator)) > 0) && (strlen(trim($value)) > 0)) {
+            if ((strlen(trim($operator)) > 0)) {
                 switch ($key) {
+                    case 'cargo':
+                        if($value == null){
+                            $operator = '!=';
+                        }
                     default:
                         $key = 'pessoas.' . $key;
                 }
