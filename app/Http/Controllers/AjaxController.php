@@ -11,7 +11,7 @@ use Yajra\DataTables\DataTables;
 class AjaxController extends Controller
 {
 
-    function listPessoas(Request $request){
+    public function listPessoas(Request $request){
 
         $filter_request = $request['filter'] ?? [];
         $whereFilter = [];
@@ -48,20 +48,84 @@ class AjaxController extends Controller
     }
 
 
-    function listTasks(Request $request){
-       
-        $data = Tasks::select(['tasks.*'])
-            ->limit(100)
-            ->get();
+    public function listTarefasPessoa(Request $request){
+
+        $filter_request = $request['filter'] ?? [];
+        $whereFilter = [];
+
+        foreach ($filter_request as $key => $filter){
+            $operator = (array_key_exists('operator', $filter) ? $filter['operator'] : null);
+            $value = (array_key_exists('value', $filter) ? $filter['value'] : null);
+            
+            if ((strlen(trim($operator)) > 0)) {
+                switch ($key) {
+                    case 'cargo':
+                        if($value == null){
+                            $operator = '!=';
+                        }
+                    default:
+                        $key = 'pessoas.' . $key;
+                }
+            }
+
+            $whereFilter[] = [$key, $operator, $value];
+        }
+        
+        $data = Pessoa::select(['pessoas.*', 'cargos.nome as cargo_nome'])
+            ->leftJoin('cargos', 'cargos.id', '=', 'pessoas.cargo')
+            ->where($whereFilter)
+            ->limit(100 );
 
         $dataTable = DataTables::of($data) 
-                    ->addColumn('action', 'tasks.action')
+                    ->addColumn('action', 'pessoas.action')
                     ->make(true);
+
         return $dataTable;
         
     }
 
-    function listCargos(Request $request){
+
+
+    // function TestlistTarefasPessoa(Request $request, int $id) {
+    //     dd($id);
+    //     $data = Tasks::join('tasks', 'tasks.id', '=', 'id')
+    //     ->select('tasks.id', 'tasks.name', 'tasks.created_at')->limit(100)->get();
+        
+    //     return DataTables::of($data)
+    //     ->addColumn('action', function($row){
+    //         $d = $row['id'];
+    //         $actionBtn = view('content.users.assignedActions', compact('d'))->render();
+    //         return $actionBtn;
+    //     })
+    //     ->rawColumns(['action'])
+    //     ->make(true);
+    // }
+
+
+    public function listTasks(Request $request){
+        
+        // dd($request->get('test'));
+        if($request->get('funcao') == 'criador'){
+            $data = Tasks::select(['tasks.*'])
+                ->where('id_creater', $request->get('id'))
+                ->limit(100)
+                ->get();
+        }
+        else{
+            $data = Tasks::select(['tasks.*'])
+            ->where('id_assigned', $request->get('id'))
+            ->limit(100)
+            ->get();  
+        }
+        
+        $dataTable = DataTables::of($data) 
+                    ->addColumn('action', 'tasks.action')
+                    ->make(true);
+        return $dataTable;
+    }
+
+
+    public function listCargos(Request $request){
        
         $data = Cargo::select(['cargos.*'])
             ->limit(100)
@@ -72,6 +136,7 @@ class AjaxController extends Controller
                     ->make(true);
         return $dataTable; 
     }
+
         
             
 }
@@ -80,36 +145,3 @@ class AjaxController extends Controller
 
 
 
-
-
-// function listTasks(Request $request){
-
-//     $filter_request = $request['filter'] ?? [];
-//     $whereFilter = [];
-
-//     foreach ($filter_request as $key => $filter){
-//         $operator = (array_key_exists('operator', $filter) ? $filter['operator'] : null);
-//         $value = (array_key_exists('value', $filter) ? $filter['value'] : null);
-        
-//         if ((strlen(trim($operator)) > 0) && (strlen(trim($value)) > 0)) {
-//             switch ($key) {
-//                 default:
-//                     $key = 'tasks.' . $key;
-//             }
-//         }
-
-//         $whereFilter[] = [$key, $operator, $value];
-//     }
-    
-//     $data = Tasks::select(['tasks.*', 'task.nome as task_nome'])
-//         ->leftJoin('task', 'cargos.id', '=', 'pessoas.cargo')
-//         ->where($whereFilter)
-//         ->limit(100 );
-
-//     $dataTable = DataTables::of($data) 
-//                 ->addColumn('action', 'tasks.action')
-//                 ->make(true);
-
-//     return $dataTable;
-    
-// }

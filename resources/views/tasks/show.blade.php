@@ -14,6 +14,7 @@
             <div class="panel-heading"><h3>{{$task->name}}</h3></div>
     
             <div class="panel-body">
+                {{dd($task->creator()->get())}}
                 <h3>Descrição: {{$task->description}}</h3>
                 <h5>Criador: {{$task->creator->nome}}</h5>     
                 <h5>Responsável: {{$task->assigned->nome}}</h5>     

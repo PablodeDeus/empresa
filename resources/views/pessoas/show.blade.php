@@ -9,7 +9,7 @@
     </div>
 
 
-
+    {{-- {{ dd($data->id) }} --}}
     <div class="container-padding">
         <div class="panel-heading">
             <h2> Pessoa </h2>
@@ -20,122 +20,174 @@
             <div class="panel-body">
 
                 <div class="col-md-6 col-lg-12">
-
                     <div id="pessoa" class="tabcontent">
-                        <div class="panel-title">
-                            Detalhes da pessoa {{$pessoa->id}}
-                        </div>
-                        <div class="panel-heading">
-                            <h3>{{$pessoa->nome}}</h3>
-                        </div>
-
-                        <div class="panel-body">
-                            <h4>Email: {{$pessoa->email}}</h4>
-                            <h4>Telefone: {{$pessoa->telefone}}</h4>
-                            <h4>Cargo: {{$pessoa->cargo}}</h4>
-                            <h4>Setor: {{$pessoa->setor}}</h4>
-                        </div>
+                        Pessoa
+                    </div>
+                    <div id="tarefasRecebidas" class="tabcontent">
+                        <h1>Tarefas recebidas</h1>
+                        <table class="table" id="tabelaRecebido">
+                            <thead>
+                                {{-- <td>Id</td>
+                                <td>Nome</td>
+                                <td>Descricao</td>
+                                <td>Ações</td> --}}
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Descricao</th>
+                                <th>Criador</th>
+                                <th>Responsavel</th>
+                                <th>Ações</th>
+                            </thead>
+                            <tfoot>
+                                {{-- <td>Id</td>
+                                <td>Nome</td>
+                                <td>Descricao</td>
+                                <td>Ações</td> --}}
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Descricao</th>
+                                <th>Criador</th>
+                                <th>Responsavel</th>
+                                <th>Ações</th>
+                            </tfoot>
+                        </table>
+                    </div>
+                    <div id="tarefasCriadas" class="tabcontent">
+                        <h1>Tarefas recebidas</h1>
+                        <table class="table" id="tabelaCriada">
+                            <thead>
+                                {{-- <td>Id</td>
+                                <td>Nome</td>
+                                <td>Descricao</td>
+                                <td>Ações</td> --}}
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Descricao</th>
+                                <th>Criador</th>
+                                <th>Responsavel</th>
+                                <th>Ações</th>
+                            </thead>
+                            <tfoot>
+                                {{-- <td>Id</td>
+                                <td>Nome</td>
+                                <td>Descricao</td>
+                                <td>Ações</td> --}}
+                                <th>Id</th>
+                                <th>Nome</th>
+                                <th>Descricao</th>
+                                <th>Criador</th>
+                                <th>Responsavel</th>
+                                <th>Ações</th>
+                            </tfoot>
+                        </table>
                     </div>
                 </div>
-                <div id="tarefasCriadas" class="tabcontent">
-                    <div class="panel-heading">
-                        <h2> Tarefas criadas </h2>
-                    </div>
-
-                    <div class="panel-body">
-
-                        @foreach($pessoa->tarefasCriadas as $tarefacriada)
-                        {{-- {{dd($tarefacriada->name)}} --}}
-                        <div class="col-md-6 col-lg-12">
-                            <div class="panel panel-default">
-
-                                <div class="panel-title">
-                                    Detalhes da task {{$tarefacriada->id}}
-                                </div>
-                                <div class="panel-heading">
-                                    <h3>{{ $tarefacriada->name }}</h3>
-                                </div>
-
-                                <div class="panel-body">
-                                    <h3>Descrição: {{ $tarefacriada->description }}</h3>
-                                    <h5>Criador: {{ $tarefacriada->creator->nome }}</h5>
-                                    <h5>Responsável: {{ $tarefacriada->assigned->nome }}</h5>
-
-                                </div>
-                            </div>
-                        </div>
-                        @endforeach
-                    </div>
-                </div>
-
-
-                <div id="tarefasRecebidas" class="tabcontent">
-
-                    <div class="panel-heading">
-                        <h2> Tarefas recebidas </h2>
-                    </div>
-
-                    <div class="container-padding">
-
-                        <div class="panel-body">
-
-                            @foreach($pessoa->tarefasRecebidas as $tarefasrecebidas)
-                            {{-- {{dd($tarefacriada->name)}} --}}
-                            <div class="col-md-6 col-lg-12">
-                                <div class="panel panel-default">
-
-                                    <div class="panel-title">
-                                        Detalhes da task {{$tarefasrecebidas->id}}
-                                    </div>
-                                    <div class="panel-heading">
-                                        <h3>{{ $tarefasrecebidas->name }}</h3>
-                                    </div>
-
-                                    <div class="panel-body">
-                                        <h3>Descrição: {{ $tarefasrecebidas->description }}</h3>
-                                        <h5>Criador: {{ $tarefasrecebidas->creator->nome }}</h5>
-                                        <h5>Responsável: {{ $tarefasrecebidas->assigned->nome }}</h5>
-
-                                    </div>
-                                </div>
-                            </div>
-                            @endforeach
-                        </div>
-                    </div>
-                </div>
-
             </div>
         </div>
     </div>
 </div>
 
+@endsection
 
-@section('script')
 
-<script type="text/javascript">
-    $(document).ready(function () {
+@section('script')      
+    
+    <script type="text/javascript">
+    
+        var urlPessoaTarefaRecebida = '{{ route('ajax.listTask') }}';
+        var urlPessoaTarefaCriada = '{{ route('ajax.listTask') }}';
+        var tableReceber;
+        var tabelacriador;
+
+    
+    $(document).ready(function() {
         // Get the element with id="defaultOpen" and click on it
+
         document.getElementById("defaultOpen").click();
 
+        tableReceber = $('#tabelaRecebido').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
+            },
+            searchDelay: 2500,
+            processing: true,
+            serverSide: true,
+            autoWidth: false,
+            paging: true,
+            order: [0, 'desc'],
+            ajax: {
+                url: urlPessoaTarefaRecebida,
+                type: 'GET' ,
+                data: {   
+                    'id':'{{$data->id}}',
+                    'funcao':'responsavel'
 
+                }         
+            },
+            fixedColumns: true,
+            columns: [
+                // {data: 'id'},
+                // {data: 'name'},
+                // {data: 'description'},
+                // {data: 'action', searchable: false} 
+                {data: 'id'},
+                {data: 'name'},
+                {data: 'description'},
+                {data: 'id_creater'},
+                {data: 'id_assigned'},
+                {data: 'action', searchable: false}  
+            ]
+        });
+        tabelacriador = $('#tabelaCriada').DataTable({
+            language: {
+                url: 'https://cdn.datatables.net/plug-ins/1.10.13/i18n/Portuguese-Brasil.json'
+            },
+            searchDelay: 2500,
+            processing: true,
+            serverSide: true,
+            autoWidth: false,
+            paging: true,
+            order: [0, 'desc'],
+            ajax: {
+                url: urlPessoaTarefaCriada,
+                type: 'GET',
+                data: {   
+                    'id':'{{$data->id}}',
+                    'funcao':'criador'
+                }                  
+            },
+            fixedColumns: true,
+            columns: [
+                // {data: 'id'},
+                // {data: 'name'},
+                // {data: 'description'},
+                // {data: 'action', searchable: false}    
+                {data: 'id'},
+                {data: 'name'},
+                {data: 'description'},
+                {data: 'id_creater'},
+                {data: 'id_assigned'},
+                {data: 'action', searchable: false}    
+            ]
+        });
     });
+
+
 </script>
 
 <script>
     function openCity(evt, cityName) {
-        var i, tabcontent, tablinks;
-        tabcontent = document.getElementsByClassName("tabcontent");
-        for (i = 0; i < tabcontent.length; i++) {
-            tabcontent[i].style.display = "none";
-        }
-        tablinks = document.getElementsByClassName("tablinks");
-        for (i = 0; i < tablinks.length; i++) {
-            tablinks[i].className = tablinks[i].className.replace(" active", "");
-        }
-        document.getElementById(cityName).style.display = "block";
-        evt.currentTarget.className += " active";
+      var i, tabcontent, tablinks;
+      tabcontent = document.getElementsByClassName("tabcontent");
+      for (i = 0; i < tabcontent.length; i++) {
+        tabcontent[i].style.display = "none";
+      }
+      tablinks = document.getElementsByClassName("tablinks");
+      for (i = 0; i < tablinks.length; i++) {
+        tablinks[i].className = tablinks[i].className.replace(" active", "");
+      }
+      document.getElementById(cityName).style.display = "block";
+      evt.currentTarget.className += " active";
     }
-</script>
-@endsection
-
+    </script>
 @endsection

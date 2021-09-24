@@ -81,8 +81,9 @@ class PessoasController extends Controller
     
     public function show($id)
     {
-        $pessoa = Pessoa::findOrFail($id);
-        return view('pessoas.show', compact('pessoa'));
+        $data = Pessoa::findOrFail($id);
+        // dd($pessoa->tarefasRecebidas);
+        return view('pessoas.show', compact('data'));
     }
     
     public function makeRules(Request $request, $data = null){

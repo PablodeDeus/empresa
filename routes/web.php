@@ -26,8 +26,8 @@ Route::get('/', function () {
 //---------------------------------Ajax----------------------------------------
 
 Route::prefix('/ajax')->group(function(){
-
     Route::get('/pessoas', 'AjaxController@listPessoas')->name('ajax.listPessoa');
+    Route::get('/pessoas/show', 'AjaxController@listTarefasPessoa')->name('ajax.listTarefaPessoa');
     Route::get('/tasks', 'AjaxController@listTasks')->name('ajax.listTask');
     Route::get('/cargos', 'AjaxController@listCargos')->name('ajax.listCargo');;
 
